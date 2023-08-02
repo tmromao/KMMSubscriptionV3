@@ -3,11 +3,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.myapplication.common.MR
 import dev.icerock.moko.resources.compose.colorResource
@@ -41,7 +42,7 @@ fun ResourcesScreen(
 
         var text: String by remember { mutableStateOf("") }
 
-        OutlinedTextField(
+        /*OutlinedTextField(
             modifier = Modifier.fillMaxWidth()
                 .padding(top = 16.dp),
             value = text,
@@ -49,7 +50,7 @@ fun ResourcesScreen(
                 textColor = MaterialTheme.colors.onBackground
             ),
             onValueChange = { text = it }
-        )
+        )*/
 
         val counter: Int = text.length
         Text(
@@ -68,14 +69,14 @@ fun ResourcesScreen(
         Text(
             modifier = Modifier.padding(top = 16.dp),
             text = fileContent.orEmpty(),
-            color = MaterialTheme.colors.onBackground
+            color = Color.Red
         )
 
         val assetContent: String? by MR.assets.some_asset.readTextAsState()
         Text(
             modifier = Modifier.padding(top = 16.dp),
             text = assetContent.orEmpty(),
-            color = MaterialTheme.colors.onBackground
+            color = Color.Red
         )
 
         Image(
