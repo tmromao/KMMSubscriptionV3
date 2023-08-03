@@ -16,6 +16,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -50,6 +54,8 @@ fun SignInScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         //Password TextField
+        var passwordHidden by rememberSaveable { mutableStateOf(true) }
+
         TextField(
             value = state.password,
             onValueChange = {
@@ -58,18 +64,14 @@ fun SignInScreen(
             label = { Text("Enter password") },
 
             visualTransformation =
-            if (state.passwordVisibility) PasswordVisualTransformation() else VisualTransformation.None,
+            if (passwordHidden)  PasswordVisualTransformation() else VisualTransformation.None,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
-                IconButton(onClick = { SignInScreenEvent.OnPasswordVisibilityToggleClicked }) {
+                IconButton(onClick = { passwordHidden = !passwordHidden }) {
                     val visibilityIcon =
-                        if (state.passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                        if (passwordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                     // Please provide localized contentDescription for accessibility services
-                    val description = if (state.passwordVisibility) {
-                        "Show password"
-                    } else {
-                        "Hide password"
-                    }
+                    val description = if (passwordHidden) { "Show password" } else { "Hide password" }
                     Icon(
                         imageVector = visibilityIcon,
                         contentDescription = description

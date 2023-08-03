@@ -28,9 +28,9 @@ class SignInScreenViewModel : ViewModel() {
             is SignInScreenEvent.OnPasswordChanged -> {
                 _state.value = _state.value.copy(password = event.password)
             }
-            is SignInScreenEvent.OnPasswordVisibilityToggleClicked -> {
-                _state.value = _state.value.copy(passwordVisibility = !state.value.passwordVisibility)
-            }
+           /* is SignInScreenEvent.OnPasswordVisibilityToggleClicked -> {
+                _state.value = _state.value.copy(passwordVisibility = state.value.passwordVisibility)
+            }*/
 
             else -> {
                 //do nothing
