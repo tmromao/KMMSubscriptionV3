@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import domain.SignInScreenState
 import presentation.SignInScreenEvent
+import presentation.components.PasswordTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,7 +54,12 @@ fun SignInScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        //Password TextField
+        PasswordTextField(
+            state = state,
+            onEvent = onEvent,
+
+        )
+      /*  //Password TextField
         var passwordHidden by rememberSaveable { mutableStateOf(true) }
 
         TextField(
@@ -78,7 +84,7 @@ fun SignInScreen(
                     )
                 }
             }
-        )
+        )*/
         Spacer(Modifier.weight(1f))
     }
 }
