@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.myapplication.common.MR
 import dev.icerock.moko.resources.compose.painterResource
 
-@Composable
+/*@Composable
 fun WelcomeScreen(route: (Route) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -51,4 +51,4 @@ fun WelcomeScreen(route: (Route) -> Unit) {
             Text(text = "moko-geo")
         }
     }
-}
+}*/

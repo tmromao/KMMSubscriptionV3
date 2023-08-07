@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -65,6 +66,17 @@ fun SignInScreen(
             onEvent = onEvent,
 
             )
+
+        Button(
+            onClick = {
+                onEvent(SignInScreenEvent.OnSignInClicked)
+            },
+            enabled = state.isSignInButtonEnabled,
+            modifier = Modifier.height(50.dp)
+        ) {
+            Text("Sign In")
+        }
+
 
         /*  //Password TextField
           var passwordHidden by rememberSaveable { mutableStateOf(true) }

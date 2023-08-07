@@ -1,4 +1,4 @@
-enum class Route {
+/*enum class Route {
     Welcome,
     Resources,
     ViewModel,
@@ -6,4 +6,4 @@ enum class Route {
     Media,
     Biometry,
     Geo
-}
+}*/
