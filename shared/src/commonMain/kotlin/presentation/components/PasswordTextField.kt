@@ -31,13 +31,13 @@ fun PasswordTextField(
     onEvent: (SignInScreenEvent) -> Unit,
     modifier: Modifier = Modifier,
     validateStrengthPassword: Boolean = false,
-    hasError: Boolean = false,
     onHasStrongPassword: (isStrong: Boolean) -> Unit = {},
 
     ) {
     val focusManager = LocalFocusManager.current // to hide keyboard
     var showPassword by rememberSaveable { mutableStateOf(false) }
     var isPasswordValid by rememberSaveable { mutableStateOf(false) }
+    var hasError by rememberSaveable { mutableStateOf(true) }
 
 
     fun strengthChecker(password: String): Boolean {
@@ -61,6 +61,8 @@ fun PasswordTextField(
         onValueChange = {
             onEvent(SignInScreenEvent.OnPasswordChanged(it))
             isPasswordValid = validatePassword(it)
+            hasError = !isPasswordValid
+
         },
         //label = { Text(text = "Enter password") },
         keyboardOptions = KeyboardOptions(
@@ -74,7 +76,7 @@ fun PasswordTextField(
             }
         ),
         singleLine = true,
-        isError = isPasswordValid,
+        isError = hasError,
         supportingText = {
             if (isPasswordValid) {
                 Text(text = "Password is valid")
