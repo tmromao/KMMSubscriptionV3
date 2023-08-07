@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import domain.SignInScreenState
 import presentation.SignInScreenEvent
+import presentation.components.EmailTextField
 import presentation.components.PasswordTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +42,7 @@ fun SignInScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TextField(
+/*        TextField(
             value = state.email,
             onValueChange = {
                 onEvent(SignInScreenEvent.OnEmailChanged(it))
@@ -50,6 +51,11 @@ fun SignInScreen(
             placeholder = { Text("example@domain.com") },
             trailingIcon = { Icon(Icons.Filled.Info, contentDescription = "email info") },
             singleLine = true
+        )*/
+
+        EmailTextField(
+            state = state,
+            onEvent = onEvent,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -58,33 +64,34 @@ fun SignInScreen(
             state = state,
             onEvent = onEvent,
 
-        )
-      /*  //Password TextField
-        var passwordHidden by rememberSaveable { mutableStateOf(true) }
+            )
 
-        TextField(
-            value = state.password,
-            onValueChange = {
-                onEvent(SignInScreenEvent.OnPasswordChanged(it))
-            },
-            label = { Text("Enter password") },
+        /*  //Password TextField
+          var passwordHidden by rememberSaveable { mutableStateOf(true) }
 
-            visualTransformation =
-            if (passwordHidden)  PasswordVisualTransformation() else VisualTransformation.None,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            trailingIcon = {
-                IconButton(onClick = { passwordHidden = !passwordHidden }) {
-                    val visibilityIcon =
-                        if (passwordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
-                    // Please provide localized contentDescription for accessibility services
-                    val description = if (passwordHidden) { "Show password" } else { "Hide password" }
-                    Icon(
-                        imageVector = visibilityIcon,
-                        contentDescription = description
-                    )
-                }
-            }
-        )*/
+          TextField(
+              value = state.password,
+              onValueChange = {
+                  onEvent(SignInScreenEvent.OnPasswordChanged(it))
+              },
+              label = { Text("Enter password") },
+
+              visualTransformation =
+              if (passwordHidden)  PasswordVisualTransformation() else VisualTransformation.None,
+              keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+              trailingIcon = {
+                  IconButton(onClick = { passwordHidden = !passwordHidden }) {
+                      val visibilityIcon =
+                          if (passwordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
+                      // Please provide localized contentDescription for accessibility services
+                      val description = if (passwordHidden) { "Show password" } else { "Hide password" }
+                      Icon(
+                          imageVector = visibilityIcon,
+                          contentDescription = description
+                      )
+                  }
+              }
+          )*/
         Spacer(Modifier.weight(1f))
     }
 }
