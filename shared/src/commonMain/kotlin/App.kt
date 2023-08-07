@@ -1,3 +1,4 @@
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -8,12 +9,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.FadeTransition
 import core.presentation.SubscriptionTheme
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
+import presentation.navigation.NavSignInScreen
 import presentation.ui.SignInScreen
 import presentation.ui.SignInScreenViewModel
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun App(
     darkTheme: Boolean,
@@ -24,25 +29,19 @@ fun App(
         darktheme = darkTheme,
         dynamicColor = dynamicColor
     ) {
-        val viewModel = getViewModel(
-            key = "sign-in-screen",
-            factory = viewModelFactory {
-                SignInScreenViewModel()
-            }
+
+        /* Surface(
+             modifier = Modifier.fillMaxSize(),
+             color = MaterialTheme.colorScheme.background
+         ) {
+         SignInScreen()
+         }*/
+
+        Navigator(
+            screen = NavSignInScreen,
         )
 
-        val state by viewModel.state.collectAsState()
 
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-
-            SignInScreen(
-                state = state,
-                onEvent = viewModel::onEvent
-            )
-        }
     }
 
 

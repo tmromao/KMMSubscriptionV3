@@ -17,6 +17,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -27,83 +28,65 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import dev.icerock.moko.mvvm.compose.getViewModel
+import dev.icerock.moko.mvvm.compose.viewModelFactory
 import domain.SignInScreenState
 import presentation.SignInScreenEvent
 import presentation.components.EmailTextField
 import presentation.components.PasswordTextField
+import presentation.navigation.NavHomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
-    state: SignInScreenState,
-    onEvent: (SignInScreenEvent) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
+
+    val navigator = LocalNavigator.currentOrThrow
+    val viewModel = getViewModel(
+        key = "sign-in-screen",
+        factory = viewModelFactory {
+            SignInScreenViewModel()
+        }
+    )
+
+    val state by viewModel.state.collectAsState()
+
     Column(
         Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-/*        TextField(
-            value = state.email,
-            onValueChange = {
-                onEvent(SignInScreenEvent.OnEmailChanged(it))
-            },
-            label = { Text("Enter email") },
-            placeholder = { Text("example@domain.com") },
-            trailingIcon = { Icon(Icons.Filled.Info, contentDescription = "email info") },
-            singleLine = true
-        )*/
+
 
         EmailTextField(
             state = state,
-            onEvent = onEvent,
+            onEvent = viewModel::onEvent,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         PasswordTextField(
             state = state,
-            onEvent = onEvent,
+            onEvent = viewModel::onEvent,
 
             )
 
         Button(
             onClick = {
-                onEvent(SignInScreenEvent.OnSignInClicked)
+                //viewModel.onEvent(SignInScreenEvent.OnSignInClicked)
+                //TODO: Add logic to check if user is signed in, confirm email, password.
+                // If so, navigate to home screen
+                navigator.push(NavHomeScreen)
             },
-            enabled = state.isSignInButtonEnabled,
             modifier = Modifier.height(50.dp)
         ) {
             Text("Sign In")
         }
 
 
-        /*  //Password TextField
-          var passwordHidden by rememberSaveable { mutableStateOf(true) }
-
-          TextField(
-              value = state.password,
-              onValueChange = {
-                  onEvent(SignInScreenEvent.OnPasswordChanged(it))
-              },
-              label = { Text("Enter password") },
-
-              visualTransformation =
-              if (passwordHidden)  PasswordVisualTransformation() else VisualTransformation.None,
-              keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-              trailingIcon = {
-                  IconButton(onClick = { passwordHidden = !passwordHidden }) {
-                      val visibilityIcon =
-                          if (passwordHidden) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
-                      // Please provide localized contentDescription for accessibility services
-                      val description = if (passwordHidden) { "Show password" } else { "Hide password" }
-                      Icon(
-                          imageVector = visibilityIcon,
-                          contentDescription = description
-                      )
-                  }
-              }
-          )*/
         Spacer(Modifier.weight(1f))
     }
 }
