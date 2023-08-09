@@ -3,6 +3,8 @@ package presentation.ui
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -59,11 +61,24 @@ fun HomeScreen(
                     TabNavigationItem(HomeTab)
                     TabNavigationItem(FavoritesTab)
                     TabNavigationItem(ProfileTab)
+
+/*
+                    NavigationBarItem(
+                        selected = tabNavigator.current == HomeTab,
+                        onClick = { tabNavigator.current = HomeTab },
+                        icon = {
+                            Icon(
+                                Icons.Filled.Home,
+                                contentDescription = "Home")
+                        },
+                    )
+*/
                 }
             }
         )
     }
 }
+
 
 
 @Composable
